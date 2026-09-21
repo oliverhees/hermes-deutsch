@@ -1,0 +1,5 @@
+name: hermes-deutsch
+version: 1
+summary: Prüft die separat installierte deutsche Hermes-Locale beim Gateway-Start.
+events:
+  - gateway:startup
