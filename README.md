@@ -25,60 +25,113 @@ Der beiliegende Hook reagiert daher auf `gateway:startup`. Wenn du Hermes aussch
 
 - Hermes Desktop ist installiert.
 - Python 3 ist verfügbar (bei einer normalen Hermes-Installation bereits vorhanden).
-- Hermes liegt im Standardpfad `~/.hermes/hermes-agent` (Linux/macOS) beziehungsweise im konfigurierten `$HERMES_HOME`.
+- Hermes liegt im Standardpfad seines Betriebssystems oder im konfigurierten `HERMES_HOME`.
 
-Bei abweichendem Checkout-Pfad wird `--agent-dir` verwendet.
+| Betriebssystem | Standard für `HERMES_HOME` | Hermes-Checkout | Installationsdaten |
+| --- | --- | --- | --- |
+| Linux / macOS | `~/.hermes` | `~/.hermes/hermes-agent` | `~/.hermes/hermes-deutsch` |
+| Windows | `%LOCALAPPDATA%\hermes` | `%LOCALAPPDATA%\hermes\hermes-agent` | `%LOCALAPPDATA%\hermes\hermes-deutsch` |
+
+Wenn `HERMES_HOME` gesetzt ist, ersetzt es diese Standardpfade auf allen Plattformen. Bei einem abweichenden Checkout-Pfad wird `--agent-dir` verwendet.
 
 ## Installation
 
-1. Repository klonen oder als ZIP herunterladen und entpacken:
+### Empfohlen: direkt in Hermes installieren
 
-   ```bash
-   git clone https://github.com/oliverhees/hermes-deutsch.git
-   cd hermes-deutsch
-   ```
+Öffne einen normalen Hermes-Chat und sende **genau diesen Satz**. Du brauchst kein Terminal und keinen Git-Befehl:
 
-2. Installer starten:
+> Bitte installiere **Hermes Deutsch v0.1.0** aus dem öffentlichen Repository `oliverhees/hermes-deutsch`. Prüfe zuerst die README und die enthaltenen Python-Dateien. Lade das Repository in einen temporären lokalen Arbeitsordner, führe anschließend den Installer mit dem Python aus, das Hermes verwendet, aus und zeige mir jede Ausgabe. Verwende keinen `curl | python`-Befehl. Baue Hermes Desktop nach der Installation neu und sage mir danach, ob Deutsch erfolgreich installiert wurde.
 
-   ```bash
-   python3 install.py
-   ```
+Hermes führt die technische Arbeit lokal aus. Der Installer sichert die Originaldateien, installiert den optionalen Gateway-Hook und baut die Desktop-App neu. Das kann einige Minuten dauern.
 
-   Der Installer sichert die mitgelieferten Dateien nach `~/.hermes/hermes-deutsch/`, installiert den Gateway-Hook und baut Hermes Desktop neu. Der Neubau kann einige Minuten dauern.
+Danach Hermes vollständig beenden und neu starten. In Hermes unter den Spracheinstellungen **Deutsch** wählen.
 
-3. Hermes vollständig beenden und neu starten.
+<details>
+<summary>Profi-Alternative: Installation im Terminal</summary>
 
-4. In Hermes die Sprache auf **Deutsch** stellen.
+Repository klonen oder als ZIP herunterladen und entpacken:
+
+```bash
+git clone https://github.com/oliverhees/hermes-deutsch.git
+cd hermes-deutsch
+```
+
+**Linux / macOS**
+
+```bash
+python3 install.py
+```
+
+**Windows (PowerShell)**
+
+```powershell
+py -3 install.py
+```
+
+</details>
 
 ### Abweichender Hermes-Checkout
+
+**Linux / macOS**
 
 ```bash
 python3 install.py --agent-dir /pfad/zu/hermes-agent
 ```
 
+**Windows (PowerShell)**
+
+```powershell
+py -3 install.py --agent-dir "C:\Pfad\zu\hermes-agent"
+```
+
 ### Nur installieren, später selbst bauen
+
+**Linux / macOS**
 
 ```bash
 python3 install.py --no-build
 python3 -m hermes_cli.main desktop --build-only --force-build
 ```
 
+**Windows (PowerShell)**
+
+```powershell
+py -3 install.py --no-build
+py -3 -m hermes_cli.main desktop --build-only --force-build
+```
+
 ## Nach einem Hermes-Update reparieren
 
 Wenn Deutsch nach einem Update fehlt oder die Desktop-App ohne Gateway gestartet wurde:
+
+**Linux / macOS**
 
 ```bash
 python3 ~/.hermes/hermes-deutsch/repair.py --rebuild
 ```
 
-Bei einem abweichenden Hermes-Home gilt entsprechend `$HERMES_HOME/hermes-deutsch/repair.py`.
+**Windows (PowerShell)**
+
+```powershell
+py -3 "$env:LOCALAPPDATA\hermes\hermes-deutsch\repair.py" --rebuild
+```
+
+Bei einem abweichenden Hermes-Home ersetze den Pfad durch `$HERMES_HOME/hermes-deutsch/repair.py` beziehungsweise den entsprechenden Windows-Pfad.
 
 Der Befehl prüft zuerst, ob die deutsche Locale bereits vollständig und in der erwarteten Version vorhanden ist. Nur bei einer Abweichung wird gepatcht und neu gebaut.
 
 ## Deinstallation / Notausstieg
 
+**Linux / macOS**
+
 ```bash
 python3 ~/.hermes/hermes-deutsch/uninstall.py
+```
+
+**Windows (PowerShell)**
+
+```powershell
+py -3 "$env:LOCALAPPDATA\hermes\hermes-deutsch\uninstall.py"
 ```
 
 Dadurch werden die bei der Installation gesicherten Originaldateien wiederhergestellt, `de.ts` entfernt und der Gateway-Hook gelöscht. Falls keine vollständigen Original-Sicherungen vorhanden sind, beendet sich der Rückbau ohne Änderung.
@@ -86,7 +139,7 @@ Dadurch werden die bei der Installation gesicherten Originaldateien wiederherges
 ## Datenschutz und Sicherheit
 
 - Keine Telemetrie, keine Netzwerkaufrufe, keine Zugangsdaten.
-- Der Installer verändert ausschließlich den lokalen Hermes-Checkout und den eigenen Ordner `~/.hermes/hermes-deutsch/` samt optionalem Hook.
+- Der Installer verändert ausschließlich den lokalen Hermes-Checkout und den eigenen Ordner `~/.hermes/hermes-deutsch/` (Linux/macOS) beziehungsweise `%LOCALAPPDATA%\hermes\hermes-deutsch\` (Windows) samt optionalem Hook.
 - Die Installation ist offen lesbar; es gibt bewusst keinen `curl | python`-Befehl.
 
 ## Quellen und Anerkennung
