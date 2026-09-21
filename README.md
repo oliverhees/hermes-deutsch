@@ -44,7 +44,10 @@ Wenn `HERMES_HOME` gesetzt ist, ersetzt es diese Standardpfade auf allen Plattfo
 
 Hermes führt die technische Arbeit lokal aus. Der Installer sichert die Originaldateien, installiert den optionalen Gateway-Hook und baut die Desktop-App neu. Das kann einige Minuten dauern.
 
-Danach Hermes vollständig beenden und neu starten. In Hermes unter den Spracheinstellungen **Deutsch** wählen.
+> [!IMPORTANT]
+> **Danach Hermes vollständig beenden und neu starten.** Wähle anschließend in Hermes unter den Spracheinstellungen **Deutsch** aus.
+>
+> Ein Gateway-Neustart oder ein Plugin-Reload allein reicht für die sichtbare Desktop-Oberfläche nicht zuverlässig aus.
 
 <details>
 <summary>Profi-Alternative: Installation im Terminal</summary>
@@ -102,7 +105,18 @@ py -3 -m hermes_cli.main desktop --build-only --force-build
 
 ## Nach einem Hermes-Update reparieren
 
-Wenn Deutsch nach einem Update fehlt oder die Desktop-App ohne Gateway gestartet wurde:
+Wenn Deutsch nach einem Update fehlt oder die Desktop-App ohne Gateway gestartet wurde, nutze zuerst wieder Hermes selbst.
+
+### Empfohlen: direkt in Hermes reparieren
+
+Öffne einen Hermes-Chat und sende **genau diesen Satz**:
+
+> Bitte repariere meine Installation von **Hermes Deutsch v0.1.0** nach dem Hermes-Update. Prüfe zuerst, ob die deutsche Locale vollständig und in der erwarteten Version vorhanden ist. Wenn etwas fehlt, führe den Reparaturhelfer aus, baue Hermes Desktop neu und zeige mir die vollständige Ausgabe. Verwende keinen `curl | python`-Befehl. Sage mir abschließend klar, ob Deutsch wieder installiert und der Desktop-Neubau erfolgreich war.
+
+Hermes prüft dabei zuerst den Zustand. Nur wenn die Locale fehlt, beschädigt ist oder nicht zum mitgelieferten Stand passt, werden Dateien erneut eingespielt und der Desktop neu gebaut.
+
+<details>
+<summary>Profi-Alternative: Reparatur im Terminal</summary>
 
 **Linux / macOS**
 
@@ -118,7 +132,10 @@ py -3 "$env:LOCALAPPDATA\hermes\hermes-deutsch\repair.py" --rebuild
 
 Bei einem abweichenden Hermes-Home ersetze den Pfad durch `$HERMES_HOME/hermes-deutsch/repair.py` beziehungsweise den entsprechenden Windows-Pfad.
 
-Der Befehl prüft zuerst, ob die deutsche Locale bereits vollständig und in der erwarteten Version vorhanden ist. Nur bei einer Abweichung wird gepatcht und neu gebaut.
+</details>
+
+> [!IMPORTANT]
+> Nach einer erfolgreichen Reparatur Hermes vollständig beenden und neu starten. Wähle bei Bedarf erneut **Deutsch** in den Spracheinstellungen aus.
 
 ## Deinstallation / Notausstieg
 
